@@ -1,0 +1,37 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+package com.mycompany.dsa_act2d;
+import java.util.Scanner;
+
+/**
+ *
+ * @author Windows
+ */
+public class Dsa_act2d {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in); //Scanner
+        //Basic Output Syntax
+        System.out.println("Hello World!");
+        System.out.println("Jim Louis David");
+        System.out.println("Section 2D");    
+        // Comment
+        System.out.println("Enter a number 1: ");
+        int x = input.nextInt();
+        System.out.println("Enter a number 2: ");
+        int y = input.nextInt();
+        
+        int sum, diff, prod, quo;
+        sum = x + y;
+        diff = x - y;
+        prod = x * y;
+        quo = x / y;
+        
+        System.out.println("The sum is: "+sum);
+        System.out.println("The difference is: "+diff);
+        System.out.println("The product is: "+prod);
+        System.out.println("The quotient is: "+quo);
+    }
+}
