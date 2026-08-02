@@ -4,17 +4,25 @@
  */
 package com.mycompany.dsa_act2d;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author CL2-PC
  */
 public class NewJFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form NewJFrame
-     */
+    Connection conn;
+    PreparedStatement pst;
+    ResultSet rs;
+    
     public NewJFrame() {
         initComponents();
+        conn = MsConnectAccess.conn();
     }
 
     /**
@@ -45,7 +53,13 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Password:");
 
-        txt_password.setText("jPasswordField1");
+        txt_username.setName(""); // NOI18N
+
+        txt_password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_passwordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,8 +99,32 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        String username = txt_username.getText();
+        char[] pass = txt_password.getPassword();
+        String userpassword = String.valueOf(pass);
+        
+        try{
+            String sqlquery = "Select * From Table1 WHERE user_name = ? and user_password = ? ";
+            pst = conn.prepareStatement(sqlquery);
+            pst.setString(1,username);
+            pst.setString(2, userpassword);
+            rs = pst.executeQuery();
+            if(!rs.next()){
+                JOptionPane.showMessageDialog(null,"incorrect input either username or password");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"login successfull");
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+    
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txt_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passwordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_passwordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,10 +154,8 @@ public class NewJFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NewJFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new NewJFrame().setVisible(true);
         });
     }
 
