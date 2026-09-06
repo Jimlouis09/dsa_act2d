@@ -104,7 +104,7 @@ public class NewJFrame extends javax.swing.JFrame {
         String userpassword = String.valueOf(pass);
         
         try{
-            String sqlquery = "Select * From Table1 WHERE user_name = ? and user_password = ? ";
+            String sqlquery = "Select * From Userlogin WHERE user_name = ? and user_password = ? ";
             pst = conn.prepareStatement(sqlquery);
             pst.setString(1,username);
             pst.setString(2, userpassword);
